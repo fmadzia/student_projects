@@ -1,49 +1,60 @@
-#include <vector>
+// C++ Program to demonstrate how to implement the quick
+// sort algorithm
+#include <bits/stdc++.h>
 using namespace std;
-void swap(vector<int>& v, int x, int y);
 
-void quicksort(vector<int> &vec, int L, int R) {
-    int i, j, mid, piv;
-    i = L;
-    j = R;
-    mid = L + (R - L) / 2;
-    piv = vec[mid];
+int partition(vector<int> &vec, int low, int high) {
 
-    while (i<R || j>L) {
-        while (vec[i] < piv)
+    // Selecting last element as the pivot
+    int pivot = vec[high];
+
+    // Index of elemment just before the last element
+    // It is used for swapping
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++) {
+
+        // If current element is smaller than or
+        // equal to pivot
+        if (vec[j] <= pivot) {
             i++;
-        while (vec[j] > piv)
-            j--;
-
-        if (i <= j) {
-            swap(vec, i, j); //error=swap function doesnt take 3 arguments
-            i++;
-            j--;
-        }
-        else {
-            if (i < R)
-                quicksort(vec, i, R);
-            if (j > L)
-                quicksort(vec, L, j);
-            return;
+            swap(vec[i], vec[j]);
         }
     }
+
+    // Put pivot to its position
+    swap(vec[i + 1], vec[high]);
+
+    // Return the point of partition
+    return (i + 1);
 }
 
-void swap(vector<int>& v, int x, int y) {
-    int temp = v[x];
-    v[x] = v[y];
-    v[y] = temp;
+void quickSort(vector<int> &vec, int low, int high) {
 
+    // Base case: This part will be executed till the starting
+    // index low is lesser than the ending index high
+    if (low < high) {
+
+        // pi is Partitioning Index, arr[p] is now at
+        // right place
+        int pi = partition(vec, low, high);
+
+        // Separately sort elements before and after the
+        // Partition Index pi
+        quickSort(vec, low, pi - 1);
+        quickSort(vec, pi + 1, high);
+    }
 }
 
 int main() {
-    vector<int> vec1;
-    const int count = 10;
+    vector<int> vec = {10, 7, 8, 9, 1, 5};
+    int n = vec.size();
+    
+      // Calling quicksort for the vector vec
+    quickSort(vec, 0, n - 1);
 
-    for (int i = 0; i < count; i++) {
-        vec1.push_back(1 + rand() % 100);
+    for (auto i : vec) {
+        cout << i << " ";
     }
-    quicksort(vec1, 0, count - 1);
-
+    return 0;
 }
