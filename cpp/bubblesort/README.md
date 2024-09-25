@@ -1,6 +1,6 @@
 # Bubblesort
 
-Algorytm sortowania bąbelkowego. Czas wykonania O(n^2)
+Algorytm sortowania bąbelkowego napisany w języku c++. Czas wykonania O(n^2)
 
 ### Autorzy
 
