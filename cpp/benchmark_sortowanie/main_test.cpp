@@ -23,18 +23,15 @@ void quickSort(std::vector<int>& vec) {
 }
 
 void bubbleSort(std::vector<int>& x) {
-	bool swap = true;
-
-	while(swap) {
-		swap = false;
-
-		for(size_t i = 0; i < x.size() - 1; i++) {
-			if(x[i] > x[i + 1]) {
-				x[i] += x[i + 1];
-				x[i + 1] = x[i] - x[i + 1];
-				x[i] -= x[i + 1];
-
-				swap = true;
+	for(int i = 0; i < x.size(); i++)
+	{
+		for(int j = 0; j < x.size() - 1; j++)
+		{
+			if(x[j] > x[j + 1])
+			{
+				int tmp = x[j];
+				x[j] = x[j + 1];
+				x[j + 1] = tmp;
 			}
 		}
 	}
