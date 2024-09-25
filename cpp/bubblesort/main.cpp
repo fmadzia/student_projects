@@ -1,40 +1,39 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
-void printVector(vector<int> x) {
-	for(size_t i = 0; i < x.size(); i++) {
-		cout<<x[i]<<" ";
-	}
-
-	cout<<endl;
+void bubble_sort(std::vector<int>& x)
+{
+    for(int i = 0; i < x.size(); i++)
+    {
+        for(int j = 0; j < x.size() - 1; j++)
+        {
+            if(x[j] > x[j + 1])
+            {
+                int tmp = x[j];
+                x[j] = x[j + 1];
+                x[j + 1] = tmp;
+            }
+        }
+    }
 }
 
-void bubbleSort(vector<int>& x) {
-	bool swap = true;
+void print_vector(std::vector<int> x)
+{
+    for (size_t i = 0; i < x.size(); i++)
+    {
+        std::cout << x[i] << " ";
+    }
 
-	while(swap) {
-		swap = false;
-
-		for(size_t i = 0; i < x.size() - 1; i++) {
-			if(x[i] > x[i + 1]) {
-				x[i] += x[i + 1];
-				x[i + 1] = x[i] - x[i + 1];
-				x[i] -= x[i + 1];
-
-				swap = true;
-			}
-		}
-	}
+    std::cout << std::endl;
 }
 
-int main(int argc, char const *argv[]) {
-	vector<int> x { 3, 1, 5, 4 };
+int main()
+{
+    std::vector<int> first_vector { 5, 2, 3, 1, 6, 3, 8 };
 
-	printVector(x);
+    print_vector(first_vector);
 
-	bubbleSort(x);
+    bubble_sort(first_vector);
 
-	printVector(x);
+    print_vector(first_vector);
 }
