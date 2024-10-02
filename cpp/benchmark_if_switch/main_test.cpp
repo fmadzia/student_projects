@@ -239,6 +239,9 @@ void test_if(int num)
     else if (num == 75) {
         cout << "num == 75" << endl;
     }
+    else {
+        cout << "Liczba poza zakresem (1-100): " << num << endl;
+    }
 }
 
 void test_case(int num)
@@ -474,7 +477,7 @@ void test_case(int num)
             cout << "num == 75" << endl;
             break;
         default:
-            cout << "num is out of range" << endl;
+            cout << "Liczba poza zakresem (1-100): " << num << endl;
             break;
     }
 }
@@ -489,7 +492,7 @@ TEST(BenchmarkTest, IfBenchmark)
 
 	chrono::duration<double> elapsed_seconds = end - start;
 
-	cout << "Czas dla instrukcji if: " << elapsed_seconds.count() << "s" << endl;
+	cout << "Czas dla instrukcji case: " << elapsed_seconds.count() << "s" << endl;
 }
 
 TEST(BenchmarkTest, CaseBenchmark)
