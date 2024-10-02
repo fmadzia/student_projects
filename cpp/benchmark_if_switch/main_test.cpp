@@ -492,7 +492,7 @@ TEST(BenchmarkTest, IfBenchmark)
 
 	chrono::duration<double> elapsed_seconds = end - start;
 
-	cout << "Czas dla instrukcji case: " << elapsed_seconds.count() << "s" << endl;
+	cout << "Czas dla instrukcji if: " << elapsed_seconds.count() << "s" << endl;
 }
 
 TEST(BenchmarkTest, CaseBenchmark)
