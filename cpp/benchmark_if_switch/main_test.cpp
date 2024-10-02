@@ -240,7 +240,7 @@ void test_if(int num)
         cout << "num == 75" << endl;
     }
     else {
-        cout << "Liczba poza zakresem (1-100): " << num << endl;
+        cout << "Liczba poza zakresem (1-75): " << num << endl;
     }
 }
 
@@ -477,7 +477,7 @@ void test_case(int num)
             cout << "num == 75" << endl;
             break;
         default:
-            cout << "Liczba poza zakresem (1-100): " << num << endl;
+            cout << "Liczba poza zakresem (1-75): " << num << endl;
             break;
     }
 }
