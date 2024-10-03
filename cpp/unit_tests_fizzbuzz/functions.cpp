@@ -1,3 +1,7 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 string fizz_buzz(int number)
 {
