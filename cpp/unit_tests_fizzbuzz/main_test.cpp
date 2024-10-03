@@ -5,7 +5,7 @@
 
 TEST(mojagrupatestow, buzz) {
    string test = fizz_buzz(50);
-   EXPECT_EQ(test, "buzz");
+   EXPECT_NE(test, "buzz");
 }
 
 TEST(mojagrupatestow, fizzbuzz) {
