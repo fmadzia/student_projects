@@ -74,4 +74,5 @@ TEST(BenchmarkTest, BubbleSortBenchmark) {
 
 ### Wnioski
 
-Quicksort jest szybszy
+>[!Important]
+>Quicksort jest dużo szybszy
