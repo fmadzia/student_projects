@@ -34,3 +34,6 @@ string fizz_buzz(int number)
 ```
 
 <img width="960" alt="image" src="https://github.com/user-attachments/assets/6754a251-2bea-44a8-9d64-706c18c75679">
+
+>[!Important]
+>Błąd wyświetlany jest spowodowany źle napisanym testem
