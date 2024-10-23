@@ -16,14 +16,25 @@ int main() {
 	cout << "Podaj dostepna wysokosc: ";
 	cin >> availableHeight;
 
-	int stepCount = ceil(availableDepth / optimalHeight);
+	int stepCount = ceil(availableDepth / optimalDepth);
 
 	float stepDepth = availableDepth / stepCount;
 	float stepHeight = availableHeight / stepCount;
 
 	if(stepHeight > optimalHeight) {
-		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest wieksza od optymalnej (" << optimalHeight << endl;
+		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest wieksza od optymalnej (" << optimalHeight << ")" << endl;
 	}
+	else if(stepHeight < optimalHeight) {
+		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest mniejsza od optymalnej (" << optimalHeight << ")" << endl;
+	}
+
+	if(stepDepth > optimalDepth) {
+		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest wieksza od optymalnej (" << optimalDepth << ")" << endl;
+	}
+	else if(stepDepth < optimalDepth) {
+		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest mniejsza od optymalnej (" << optimalDepth << ")" << endl;
+	}
+
 
 	cout << "Ilosc schodow: " << stepCount << endl;
 	cout << "Glebokosc schodow: " << stepDepth << endl;
