@@ -4,8 +4,8 @@
 using namespace std;
 
 void stairsExercise(int availableDepth, int availableHeight) {
-	int optimalDepth = 25;
-	int optimalHeight = 15;
+	const int optimalDepth = 25;
+	const int optimalHeight = 15;
 
 	int stepCount = ceil(availableHeight / optimalHeight);
 
