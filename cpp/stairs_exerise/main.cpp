@@ -16,7 +16,7 @@ int main() {
 	cout << "Podaj dostepna wysokosc: ";
 	cin >> availableHeight;
 
-	int stepCount = ceil(availableDepth / optimalDepth);
+	int stepCount = ceil(availableHeight / optimalHeight);
 
 	float stepDepth = availableDepth / stepCount;
 	float stepHeight = availableHeight / stepCount;
