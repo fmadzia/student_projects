@@ -68,13 +68,12 @@ int main() {
 wypisuje ostrzeżenia, jeśli obliczone wymiary stopni przekraczają lub są mniejsze od optymalnych wymiarów.
 wypisuje liczbę stopni, głębokość stopni i wysokość stopni.
 
-Przykład:
+Przykład dla ```stairsExercise(100, 90)```
 
 ```shell
-!!! Obliczona wysokość schodów (20) jest większa od optymalnej (15)
-!!! Obliczona głębokość schodów (5) jest mniejsza od optymalnej (25)
-Ilość schodów: 4
-Głębokość schodów: 25
+!!! Obliczona głębokość schodów (16) jest mniejsza od optymalnej (25)
+Ilość schodów: 6
+Głębokość schodów: 16
 Wysokość schodów: 15
 ```
 
