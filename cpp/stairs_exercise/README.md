@@ -49,10 +49,10 @@ void stairsExercise(int availableDepth, int availableHeight) {
 ### Obliczenia:
 
 >[!Important]
->Program korzysta ze stałych ```optimalDepth = 25``` (cm) oraz ```optimalHeight = 15``` (cm)
+>Program korzysta ze stałych ```OPTIMAL_DEPTH = 25``` (cm) oraz ```OPTIMAL_HEIGHT = 15``` (cm)
 
 ```
-stepCount: Liczba stopni zaokrąglona w dół, obliczona jako ceil(availableHeight / optimalHeight).
+stepCount: Liczba stopni zaokrąglona w dół, obliczona jako ceil(availableHeight / OPTIMAL_HEIGHT).
 stepDepth: Głębokość każdego stopnia (cm), obliczona jako availableDepth / stepCount.
 stepHeight: Wysokość każdego stopnia (cm), obliczona jako availableHeight / stepCount.
 ```
@@ -65,8 +65,8 @@ int main() {
 ```
 
 ### Wynik
-wypisuje ostrzeżenia, jeśli obliczone wymiary stopni przekraczają lub są mniejsze od optymalnych wymiarów.
-wypisuje liczbę stopni, głębokość stopni i wysokość stopni.
+Wypisuje ostrzeżenia, jeśli obliczone wymiary stopni przekraczają lub są mniejsze od optymalnych wymiarów.
+Wypisuje liczbę stopni, głębokość stopni i wysokość stopni.
 
 Przykład dla ```stairsExercise(100, 90)```
 
