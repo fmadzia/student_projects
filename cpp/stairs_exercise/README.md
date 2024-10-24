@@ -45,7 +45,11 @@ void stairsExercise(int availableDepth, int availableHeight) {
 	cout << "Wysokosc schodow: " << stepHeight << endl;
 }
 ```
+
 ### Obliczenia:
+
+>[!Important]
+>Program korzysta ze stałych ```optimalDepth = 25``` (cm) oraz ```optimalHeight = 15``` (cm)
 
 ```
 stepCount: Liczba stopni zaokrąglona w dół, obliczona jako ceil(availableHeight / optimalHeight).
@@ -73,17 +77,6 @@ Ilość schodów: 4
 Głębokość schodów: 25
 Wysokość schodów: 15
 ```
-
-
-Optymalne Wymiary
-Optymalna Głębokość Stopnia: 25 cm
-Optymalna Wysokość Stopnia: 15 cm
-Przykładowy Wynik
-!!! Obliczona wysokość schodów (20) jest większa od optymalnej (15)
-!!! Obliczona głębokość schodów (5) jest mniejsza od optymalnej (25)
-Ilość schodów: 4
-Głębokość schodów: 25
-Wysokość schodów: 15
 
 ### Uwagi
 
