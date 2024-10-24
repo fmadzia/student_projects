@@ -3,18 +3,9 @@
 
 using namespace std;
 
-int main() {
-	int availableDepth;
-	int availableHeight;
-
+void stairsExercise(int availableDepth, int availableHeight) {
 	int optimalDepth = 25;
 	int optimalHeight = 15;
-
-	cout << "Podaj dostepna glebokosc: ";
-	cin >> availableDepth;
-
-	cout << "Podaj dostepna wysokosc: ";
-	cin >> availableHeight;
 
 	int stepCount = ceil(availableHeight / optimalHeight);
 
@@ -39,6 +30,10 @@ int main() {
 	cout << "Ilosc schodow: " << stepCount << endl;
 	cout << "Glebokosc schodow: " << stepDepth << endl;
 	cout << "Wysokosc schodow: " << stepHeight << endl;
+}
+
+int main() {
+	stairsExercise(100, 60);
 
 	return 0;
 }
