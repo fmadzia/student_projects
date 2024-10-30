@@ -3,6 +3,10 @@
 ### Przegląd
 Ten program oblicza liczbę stopni potrzebnych do pokonania danej wysokości, uwzględniając standardowe wymiary stopni (25cm głębokości i 15cm wysokości). Sprawdza również, czy obliczone wymiary stopni spełniają optymalne standardy.
 
+### Schemat
+
+<img width="573" alt="image" src="https://github.com/user-attachments/assets/155d570c-5e4d-4dcb-bd30-dab1f0b58e25">
+
 ### Opis Programu
 Program definiuje funkcję stairsExercise, która przyjmuje dwa parametry:
 
