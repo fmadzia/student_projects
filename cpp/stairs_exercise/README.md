@@ -1,7 +1,7 @@
 # Program do Obliczania Schodów
 
 ### Przegląd
-Ten program oblicza liczbę stopni potrzebnych do pokonania danej wysokości, uwzględniając standardowe wymiary stopni (25cm głębokości i 15cm wysokości). Sprawdza również, czy obliczone wymiary stopni spełniają optymalne standardy.
+Program oblicza liczbę stopni potrzebnych do pokonania danej wysokości, uwzględniając standardowe wymiary stopni (25cm głębokości i 15cm wysokości). Sprawdza również, czy obliczone wymiary stopni spełniają optymalne standardy.
 
 ### Schemat
 
