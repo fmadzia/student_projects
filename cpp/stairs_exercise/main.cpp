@@ -55,7 +55,7 @@ StairCalculationResult calculateStairs(int availableHeight, int availableDepth)
     throw StairCalculationException();
 }
 
-int main()
+/*int main()
 {
     try
     {
@@ -76,4 +76,4 @@ int main()
     }
 
     return 0;
-}
+}*/
