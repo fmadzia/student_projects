@@ -1,48 +1,79 @@
 #include <iostream>
+#include <stdexcept>
 #include <cmath>
 
-using namespace std;
+class StairCalculationException : public std::exception
+{
+public:
+    const char* what() const noexcept override
+    {
+        return "Impossible to create stairs with given height and depth.";
+    }
+};
 
-void stairsExercise(int availableDepth, int availableHeight) {
-	const int OPTIMAL_DEPTH = 25;
-	const int OPTIMAL_HEIGHT = 15;
+class StairCalculationResult
+{
+public:
+    int stairsCount;
+    int heightOfEachStair;
+    int depthOfEachStair;
 
-	int stepCount = ceil(availableHeight / OPTIMAL_HEIGHT);
+    StairCalculationResult(int stairsCount, int heightOfEachStair, int depthOfEachStair)
+    {
+        this->stairsCount = stairsCount;
+        this->heightOfEachStair = heightOfEachStair;
+        this->depthOfEachStair = depthOfEachStair;
+    }
+};
 
-	float stepDepth = availableDepth / stepCount;
-	float stepHeight = availableHeight / stepCount;
+StairCalculationResult calculateStairs(int availableHeight, int availableDepth)
+{
+    const int minHeight = 14;
+    const int maxHeight = 19;
+    const int minDepth = 25;
+    const int maxDepth = 32;
 
-	if(stepHeight > OPTIMAL_HEIGHT) {
-		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest wieksza od optymalnej (" << OPTIMAL_HEIGHT << ")" << endl;
-	}
-	else if(stepHeight < OPTIMAL_HEIGHT) {
-		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest mniejsza od optymalnej (" << OPTIMAL_HEIGHT << ")" << endl;
-	}
+    if (availableHeight < minHeight || availableDepth < minDepth)
+    {
+        throw StairCalculationException();
+    }
 
-	if(stepDepth > OPTIMAL_DEPTH) {
-		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest wieksza od optymalnej (" << OPTIMAL_DEPTH << ")" << endl;
-	}
-	else if(stepDepth < OPTIMAL_DEPTH) {
-		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest mniejsza od optymalnej (" << OPTIMAL_DEPTH << ")" << endl;
-	}
+    for (int height = maxHeight; height >= minHeight; --height)
+    {
+        for (int depth = maxDepth; depth >= minDepth; --depth)
+        {
+            int stepsByHeight = availableHeight / height;
+            int stepsByDepth = availableDepth / depth;
 
+            if (stepsByHeight * height <= availableHeight && stepsByDepth * depth <= availableDepth)
+            {
+                return StairCalculationResult(stepsByHeight, height, depth);
+            }
+        }
+    }
 
-	cout << "Ilosc schodow: " << stepCount << endl;
-	cout << "Glebokosc schodow: " << stepDepth << endl;
-	cout << "Wysokosc schodow: " << stepHeight << endl;
+    throw StairCalculationException();
 }
 
-int main() {
-	int depth;
-	int height;
+int main()
+{
+    try
+    {
+        int height, depth;
+        std::cout << "Enter the available height (in cm): ";
+        std::cin >> height;
+        std::cout << "Enter the available depth (in cm): ";
+        std::cin >> depth;
 
-	cout << "Podaj glebokosc: ";
-	cin >> depth;
+        StairCalculationResult stairs = calculateStairs(height, depth);
+        std::cout << "Number of stairs: " << stairs.stairsCount << std::endl;
+        std::cout << "Height of each stair: " << stairs.heightOfEachStair << std::endl;
+        std::cout << "Depth of each stair: " << stairs.depthOfEachStair << std::endl;
+    }
+    catch (const StairCalculationException& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 
-	cout << "Podaj wysokosc: ";
-	cin >> height;
-
-	stairsExercise(depth, height);
-
-	return 0;
+    return 0;
 }
