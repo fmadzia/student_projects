@@ -33,7 +33,16 @@ void stairsExercise(int availableDepth, int availableHeight) {
 }
 
 int main() {
-	stairsExercise(100, 60);
+	int depth;
+	int height;
+
+	cout << "Podaj glebokosc: ";
+	cin >> depth;
+
+	cout << "Podaj wysokosc: ";
+	cin >> height;
+
+	stairsExercise(depth, height);
 
 	return 0;
 }
