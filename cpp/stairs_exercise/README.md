@@ -1,94 +1,160 @@
 # Program do Obliczania Schodów
 
-### Przegląd
-Program oblicza liczbę stopni potrzebnych do pokonania danej wysokości, uwzględniając standardowe wymiary stopni (25cm głębokości i 15cm wysokości). Sprawdza również, czy obliczone wymiary stopni spełniają optymalne standardy.
-
-### Schemat
-
-<img width="573" alt="image" src="https://github.com/user-attachments/assets/155d570c-5e4d-4dcb-bd30-dab1f0b58e25">
+Program oblicza liczbę stopni potrzebnych do pokonania danej wysokości, uwzględniając minimalne i maksymalne wymiary stopni (wysokość i głębokość). Sprawdza również, czy podane wymiary schodów mieszczą się w określonych granicach i zwraca wynik obliczeń.
 
 ### Opis Programu
-Program definiuje funkcję stairsExercise, która przyjmuje dwa parametry:
 
-    int availableDepth: Całkowita dostępna głębokość na schody (cm)
-    int availableHeight: Całkowita wysokość do pokonania przez schody (cm)
+Program definiuje dwie klasy i jedną funkcję:
 
-Funkcja oblicza liczbę stopni (stepCount) potrzebnych do pokonania danej wysokości, używając optymalnej wysokości stopnia. Następnie oblicza głębokość (stepDepth) i wysokość (stepHeight) każdego stopnia.
+- **StairCalculationException**: Klasa wyjątku rzucanego, gdy nie można obliczyć schodów z podaną wysokością i głębokością.
+- **StairCalculationResult**: Klasa przechowująca wynik obliczeń schodów, zawierająca liczbę schodków, ich wysokość i głębokość.
+- **calculateStairs**: Funkcja obliczająca liczbę schodów, ich wysokość i głębokość na podstawie dostępnej wysokości i głębokości.
 
-Program sprawdza, czy obliczone wymiary stopni przekraczają lub są mniejsze od optymalnych wymiarów i wypisuje odpowiednie ostrzeżenia. Na koniec wypisuje liczbę stopni, głębokość stopni i wysokość stopni.
-
-Kod funkcji ```stairsExercise```
+### Klasa `StairCalculationException`
 
 ```cpp
-#include <iostream>
-#include <cmath>
+class StairCalculationException : public std::exception
+{
+public:
+    const char* what() const noexcept override
+    {
+        return "Nie można utworzyć schodów z podaną wysokością i głębokością.";
+    }
+};
+```
 
-using namespace std;
+- Klasa dziedziczy po `std::exception` i nadpisuje metodę `what()`, która zwraca komunikat błędu.
 
-void stairsExercise(int availableDepth, int availableHeight) {
-	const int OPTIMAL_DEPTH = 25;
-	const int OPTIMAL_HEIGHT = 15;
+### Klasa `StairCalculationResult`
 
-	int stepCount = ceil(availableHeight / OPTIMAL_HEIGHT);
+```cpp
+class StairCalculationResult
+{
+public:
+    int stairsCount;
+    int heightOfEachStair;
+    int depthOfEachStair;
 
-	float stepDepth = availableDepth / stepCount;
-	float stepHeight = availableHeight / stepCount;
+    StairCalculationResult(int stairsCount, int heightOfEachStair, int depthOfEachStair)
+    {
+        this->stairsCount = stairsCount;
+        this->heightOfEachStair = heightOfEachStair;
+        this->depthOfEachStair = depthOfEachStair;
+    }
+};
+```
 
-	if(stepHeight > OPTIMAL_HEIGHT) {
-		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest wieksza od optymalnej (" << OPTIMAL_HEIGHT << ")" << endl;
-	}
-	else if(stepHeight < OPTIMAL_HEIGHT) {
-		cout << "!!! Obliczona wysokosc schodow (" << stepHeight << ") jest mniejsza od optymalnej (" << OPTIMAL_HEIGHT << ")" << endl;
-	}
+- Klasa przechowuje wynik obliczeń schodów: liczbę schodków (`stairsCount`), ich wysokość (`heightOfEachStair`) i głębokość (`depthOfEachStair`).
+- Posiada konstruktor inicjujący te wartości.
 
-	if(stepDepth > OPTIMAL_DEPTH) {
-		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest wieksza od optymalnej (" << OPTIMAL_DEPTH << ")" << endl;
-	}
-	else if(stepDepth < OPTIMAL_DEPTH) {
-		cout << "!!! Obliczona glebokosc schodow (" << stepDepth << ") jest mniejsza od optymalnej (" << OPTIMAL_DEPTH << ")" << endl;
-	}
+### Funkcja `calculateStairs`
 
+```cpp
+StairCalculationResult calculateStairs(int availableHeight, int availableDepth)
+{
+    const int minHeight = 14;
+    const int maxHeight = 19;
+    const int minDepth = 25;
+    const int maxDepth = 32;
 
-	cout << "Ilosc schodow: " << stepCount << endl;
-	cout << "Glebokosc schodow: " << stepDepth << endl;
-	cout << "Wysokosc schodow: " << stepHeight << endl;
+    if (availableHeight < minHeight || availableDepth < minDepth)
+    {
+        throw StairCalculationException();
+    }
+
+    for (int height = maxHeight; height >= minHeight; --height)
+    {
+        for (int depth = maxDepth; depth >= minDepth; --depth)
+        {
+            int stepsByHeight = availableHeight / height;
+            int stepsByDepth = availableDepth / depth;
+
+            if (stepsByHeight * height <= availableHeight && stepsByDepth * depth <= availableDepth)
+            {
+                return StairCalculationResult(stepsByHeight, height, depth);
+            }
+        }
+    }
+
+    throw StairCalculationException();
 }
 ```
 
-### Obliczenia:
+- Funkcja oblicza liczbę schodów, ich wysokość i głębokość na podstawie dostępnych wymiarów.
+- Sprawdza, czy dostępne wymiary są wystarczające do obliczeń (minimalna wysokość to 14 cm, minimalna głębokość to 25 cm).
+- Przeszukuje możliwe kombinacje wysokości i głębokości schodków w zadanym zakresie (od 14 cm do 19 cm dla wysokości i od 25 cm do 32 cm dla głębokości).
+- Zwraca obiekt `StairCalculationResult` z obliczonymi wartościami, gdy znajdzie odpowiednie wymiary.
+- Rzuca wyjątek `StairCalculationException`, gdy nie można znaleźć odpowiednich wymiarów schodków.
 
->[!Important]
->Program korzysta ze stałych ```OPTIMAL_DEPTH = 25``` (cm) oraz ```OPTIMAL_HEIGHT = 15``` (cm)
-
-```
-stepCount: Liczba stopni zaokrąglona w dół, obliczona jako ceil(availableHeight / OPTIMAL_HEIGHT).
-stepDepth: Głębokość każdego stopnia (cm), obliczona jako availableDepth / stepCount.
-stepHeight: Wysokość każdego stopnia (cm), obliczona jako availableHeight / stepCount.
-```
 ### Przykład Użycia
 ```cpp
 int main() {
-    stairsExercise(100, 60);
+    try {
+        StairCalculationResult result = calculateStairs(200, 150);
+        std::cout << "Ilość schodów: " << result.stairsCount << std::endl;
+        std::cout << "Wysokość schodków: " << result.heightOfEachStair << " cm" << std::endl;
+        std::cout << "Głębokość schodków: " << result.depthOfEachStair << " cm" << std::endl;
+    } catch (const StairCalculationException& e) {
+        std::cerr << e.what() << std::endl;
+    }
     return 0;
 }
 ```
 
-### Wynik
-Wypisuje ostrzeżenia, jeśli obliczone wymiary stopni przekraczają lub są mniejsze od optymalnych wymiarów.
-Wypisuje liczbę stopni, głębokość stopni i wysokość stopni.
+### Testy dla Programu do Obliczania Schodów
 
-Przykład dla ```stairsExercise(100, 90)```
+Testy mają na celu weryfikację poprawności działania funkcji `calculateStairs`. Wykorzystujemy framework Google Test (gtest) do testowania różnych scenariuszy.
 
-```shell
-!!! Obliczona głębokość schodów (16) jest mniejsza od optymalnej (25)
-Ilość schodów: 6
-Głębokość schodów: 16
-Wysokość schodów: 15
+### Zawartość Pliku `main_test.cpp`
+
+```cpp
+#include <gtest/gtest.h>
+#include "main.cpp"
+
+// Test sprawdzający poprawne działanie funkcji dla poprawnych danych wejściowych
+TEST(stairsTests, validInput) {
+    StairCalculationResult stairs = calculateStairs(250, 150);
+    EXPECT_EQ(stairs.stairsCount, 13); // Oczekujemy, że liczba schodków wynosi 13
+    EXPECT_NE(stairs.depthOfEachStair, 0); // Oczekujemy, że głębokość każdego schodka nie wynosi 0
+}
+
+// Test sprawdzający poprawne rzucenie wyjątku dla niepoprawnych danych wejściowych
+TEST(stairsTests, invalidInput) {
+    try
+    {
+        StairCalculationResult stairs = calculateStairs(0, 0);
+    }
+    catch(std::exception& e)
+    {
+        EXPECT_STREQ("Exception was thrown as expected: ", e.what());
+    }
+}
+
+// Funkcja główna uruchamiająca wszystkie testy
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 ```
 
-### Uwagi
+### Opis Testów
 
->[!Important]
->Program używa funkcji ceil z biblioteki <cmath>, aby zapewnić, że liczba stopni jest zaokrąglona w górę do najbliższej liczby całkowitej.
->
->Program wypisuje ostrzeżenia, jeśli obliczone wymiary stopni nie odpowiadają optymalnym wymiarom.
+1. **Test validInput**:
+    - Sprawdza, czy funkcja `calculateStairs` zwraca poprawny wynik dla prawidłowych danych wejściowych (`250` wysokości i `150` głębokości).
+    - Oczekujemy, że liczba schodków (`stairsCount`) wynosi `13`.
+    - Sprawdzamy, czy głębokość każdego schodka (`depthOfEachStair`) nie jest równa `0`.
+
+2. **Test invalidInput**:
+    - Sprawdza, czy funkcja `calculateStairs` poprawnie rzuca wyjątek dla niepoprawnych danych wejściowych (`0` wysokości i `0` głębokości).
+    - Oczekujemy, że zostanie rzucony wyjątek z odpowiednim komunikatem.
+
+### Jak Uruchomić Testy
+
+1. Zainstaluj bibliotekę Google Test.
+2. Skompiluj plik `main_test.cpp` wraz z plikiem źródłowym `main.cpp`.
+3. Uruchom wygenerowany plik wykonywalny, aby przeprowadzić testy.
+
+### Wyniki Testów
+
+- Testy zostaną uruchomione automatycznie przez Google Test, a wyniki zostaną wyświetlone w konsoli.
+- Wyniki testów pokażą, czy funkcja `calculateStairs` działa poprawnie dla różnych scenariuszy danych wejściowych.
